@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Extension Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="password"], input[type="text"] {
+            width: 300px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #status {
+            margin-top: 10px;
+            color: green;
+        }
+        .input-group {
+            position: relative;
+            display: inline-block;
+        }
+        #toggleVisibility {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #maskedKey {
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Extension Options</h1>
+    <label for="apiKey">OpenAI API Key:</label>
+    <div class="input-group">
+        <input type="password" id="apiKey" name="apiKey">
+        <button id="toggleVisibility">Show</button>
+    </div>
+    <button id="save">Save</button>
+    <div id="status"></div>
+
+    <script src="options.js"></script>
+</body>
+</html>
