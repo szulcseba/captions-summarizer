@@ -1,6 +1,4 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Captions Summarizer
-
-# YouTube Video Summarizer Chrome Extension
+# <img src="public/icons/icon_48.png" width="45" align="left"> Youtube Summarizer Chrome Extension
 
 A Chrome extension that generates concise summaries of YouTube videos using AI technology. This tool helps users quickly understand the main points of a video without watching the entire content.
 
@@ -10,8 +8,7 @@ A Chrome extension that generates concise summaries of YouTube videos using AI t
 - **Summary Library**: Save and manage your video summaries for future reference
 - **Easy Access**: Quick access through the Chrome extension popup
 - **BYOK**: Bring Your Own Key for LLM, currently supports OpenAI API
-- **Languages support**: Currently supports English
-
+- **Languages support**: Currently supports English 
 
 ## Installation
 
@@ -25,7 +22,6 @@ A Chrome extension that generates concise summaries of YouTube videos using AI t
 3. (not implemented yet) Optionally, choose your own OpenAI model in ./build/config.js; by default GPT-4o is being used 
 ```
 OPENAI_MODEL: 'gpt-4o'
-
 ```
 4. Set up Open AI Api Key
 Click the Settings cog in top right corner and set up your API Key.
