@@ -1,6 +1,7 @@
 'use strict';
 
 import './popup.css';
+import './lib/marked.min.js';
 
 
 // Restores select box and checkbox state using the preferences
@@ -19,20 +20,61 @@ function restoreOptions() {
 document.addEventListener('DOMContentLoaded', function() {
   const summarizeBtn = document.getElementById('summarizeBtn');
   const summaryDiv = document.getElementById('summary');
+  const saveButton = document.getElementById('saveButton');
+
+  saveButton.style.display = 'none';
+
+  //let videoSummary = '';
+  let videoSummary = {
+    title : '',
+    summary : ''
+  }
 
   summarizeBtn.addEventListener('click', function() {
       summarizeBtn.disabled = true;
       summaryDiv.textContent = 'Summarizing...';
+      saveButton.style.display = 'none';
 
       chrome.runtime.sendMessage({action: "summarize"}, function(response) {
           summarizeBtn.disabled = false;
           if (response && response.summary) {
-              summaryDiv.textContent = response.summary;
+              videoSummary.title = response.title;
+              videoSummary.slug = response.slug;
+              videoSummary.summary = marked.parse(response.summary);
+              saveButton.style.display = 'block';
+              document.getElementById('summary').innerHTML = videoSummary.summary;
+              //summaryDiv.textContent = videoSummary.summary;
+              
+              
           } else {
               summaryDiv.textContent = 'Error: Could not generate summary.';
+              saveButton.style.display = 'none';
           }
       });
+
+      
   });
+
+  saveButton.addEventListener('click', function() {
+    chrome.runtime.sendMessage({action: "saveVideoSummary", videoSummary: videoSummary}, function(response) {
+      if(response && response.key) {
+        saveButton.textContent = 'Saved!';
+        saveButton.style.backgroundColor = 'green';
+        saveButton.style.color = 'white';
+        saveButton.disabled = true;
+        // setTimeout(() => {
+        //   saveButton.textContent = 'Save Summary';
+        //   saveButton.disabled = false;
+        // }, 2000);
+      } else {
+        console.error('Error saving summary');
+        saveButton.textContent = 'Error Saving';
+        setTimeout(() => {
+          saveButton.textContent = 'Save Summary';
+        }, 2000);
+      }
+    })
+  })
 });
 
 document.querySelector('#go-to-options').addEventListener('click', function() {
@@ -41,8 +83,18 @@ document.querySelector('#go-to-options').addEventListener('click', function() {
   } else {
     window.open(chrome.runtime.getURL('options.html'));
   }
+});
+
+document.querySelector('#go-to-library').addEventListener('click', function() {
+  if (chrome.runtime.openLibraryPage) {
+    chrome.runtime.openLibraryPage();
+  } else {
+    window.open(chrome.runtime.getURL('library.html'));
+  }
 })
 /*
+
+
 
 (function () {
   // We will make use of Storage API to get and store `count` value

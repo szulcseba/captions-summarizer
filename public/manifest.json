@@ -18,7 +18,7 @@
   },
   "options_page": "options.html",
   "web_accessible_resources": [{
-    "resources": ["contentScript.js"],
+    "resources": ["contentScript.js", "load-styles.js", "styles.css", "library.html", "lib/marked.min.js"],
     "matches": ["<all_urls>"]
   }],
   "action": {
@@ -26,6 +26,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
+    "tabs",
     "activeTab",
     "storage"
   ],

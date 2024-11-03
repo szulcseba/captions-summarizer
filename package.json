@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "openai": "^4.55.7",
+    "supabase": "^1.207.9",
     "youtube-caption-extractor": "^1.4.3"
   }
 }
